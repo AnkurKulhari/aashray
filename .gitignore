@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+.env
+.env.*
+\.DS_Store
+# builds
+dist/
+build/
+coverage/
+\.turbo/
+# logs
+*.log
+logs/
+# editor
+.vscode/
+.idea/
+# OS
+Thumbs.db
