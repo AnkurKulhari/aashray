@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const CommunityPostSchema = new mongoose.Schema({
   author: {
@@ -472,5 +473,8 @@ CommunityPostSchema.index({
   content: 'text',
   tags: 'text'
 });
+
+// Add pagination plugin
+CommunityPostSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('CommunityPost', CommunityPostSchema);
