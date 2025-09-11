@@ -126,23 +126,19 @@ student-mental-health-app/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd student-mental-health-app
+   git clone https://github.com/AnkurKulhari/aashray.git
+   cd aashray
    ```
 
 2. **Install dependencies**
    ```bash
-   # Backend
-   cd backend
-   npm install
+   # Install all dependencies (backend, frontend, mobile)
+   npm run install:all
    
-   # Frontend
-   cd ../frontend
-   npm install
-   
-   # Mobile (optional)
-   cd ../mobile
-   npm install
+   # Or install individually:
+   npm run install:backend
+   npm run install:frontend
+   npm run install:mobile
    ```
 
 3. **Environment setup**
@@ -162,17 +158,13 @@ student-mental-health-app/
 
 5. **Start development servers**
    ```bash
-   # Backend (runs on port 3001)
-   cd backend
+   # Start both backend and frontend concurrently
    npm run dev
    
-   # Frontend (runs on port 3000)
-   cd frontend
-   npm start
-   
-   # Mobile development
-   cd mobile
-   expo start
+   # Or start individually:
+   npm run dev:backend   # Backend on http://localhost:3001
+   npm run dev:frontend  # Frontend on http://localhost:5173 (Vite)
+   npm run dev:mobile    # Mobile with Expo
    ```
 
 ### Environment Variables
@@ -193,8 +185,8 @@ SMTP_PASS=your-email-password
 
 **Frontend `.env`**:
 ```env
-REACT_APP_API_URL=http://localhost:3001/api
-REACT_APP_SOCKET_URL=http://localhost:3001
+VITE_API_URL=http://localhost:3001/api
+VITE_APP_NAME=Aashray
 ```
 
 ## 🧪 Testing
@@ -215,26 +207,45 @@ npm test
 
 ## 📦 Deployment
 
+### Vercel Deployment (Recommended)
+
+This application is optimized for deployment on Vercel:
+
+1. **Push to GitHub**: Ensure your code is pushed to GitHub
+2. **Connect to Vercel**: Import your repository in Vercel dashboard
+3. **Configure Environment Variables**: Set the required environment variables in Vercel
+4. **Deploy**: Vercel will automatically deploy both frontend and backend
+
+### Production Environment Variables
+```bash
+# Backend (Set in Vercel)
+NODE_ENV=production
+DATABASE_URL=your-mongodb-production-url
+JWT_SECRET=your-production-jwt-secret
+JWT_REFRESH_SECRET=your-production-refresh-secret
+ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
+
+# Frontend (Set in Vercel)
+VITE_API_URL=https://your-vercel-app.vercel.app/api
+```
+
 ### Production Build
 ```bash
-# Backend
-cd backend
+# Build all components
 npm run build
 
-# Frontend
-cd frontend
-npm run build
-
-# Mobile
-cd mobile
-expo build:android
-expo build:ios
+# Or build individually:
+npm run build:backend
+npm run build:frontend
 ```
 
 ### Docker Support
 ```bash
-# Build and run with Docker Compose
-docker-compose up --build
+# Development
+npm run docker:dev
+
+# Production
+npm run docker:prod
 ```
 
 ## 🤝 Contributing
