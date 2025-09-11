@@ -47,6 +47,7 @@ app.use(compression());
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const moodRoutes = require('./routes/moodRoutes');
+const goalRoutes = require('./routes/goalRoutes');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -61,6 +62,7 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/moods', moodRoutes);
+app.use('/api/v1/goals', goalRoutes);
 
 app.get('/api/v1', (req, res) => {
   res.status(200).json({

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const GoalSchema = new mongoose.Schema({
   user: {
@@ -462,5 +463,8 @@ GoalSchema.pre('save', function(next) {
   
   next();
 });
+
+// Add pagination plugin
+GoalSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Goal', GoalSchema);
