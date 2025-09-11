@@ -49,6 +49,7 @@ const authRoutes = require('./routes/authRoutes');
 const moodRoutes = require('./routes/moodRoutes');
 const goalRoutes = require('./routes/goalRoutes');
 const communityRoutes = require('./routes/communityRoutes');
+const gamificationRoutes = require('./routes/gamificationRoutes');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -65,6 +66,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/moods', moodRoutes);
 app.use('/api/v1/goals', goalRoutes);
 app.use('/api/v1/community', communityRoutes);
+app.use('/api/v1/gamification', gamificationRoutes);
 
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
