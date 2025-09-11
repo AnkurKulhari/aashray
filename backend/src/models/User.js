@@ -222,6 +222,7 @@ const UserSchema = new mongoose.Schema({
   // Account Recovery
   passwordResetToken: String,
   passwordResetExpires: Date,
+  passwordChangedAt: Date,
   emailVerificationToken: String,
   emailVerificationExpires: Date,
   
@@ -285,6 +286,18 @@ UserSchema.pre('save', async function(next) {
   
   // Hash password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
+  
+  // Set passwordChangedAt to current time (except for new documents)
+  if (!this.isNew) {
+    this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure JWT is issued after password change
+  }
+  
+  next();
+});
+  if (!this.isNew) {
+    this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure JWT is issued after password change
+  }
+  
   next();
 });
 

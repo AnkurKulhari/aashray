@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const connectDB = require('./config/db');
@@ -38,9 +39,13 @@ app.use(cors({
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser());
 
 // Compression middleware
 app.use(compression());
+
+// Import routes
+const authRoutes = require('./routes/authRoutes');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -52,7 +57,9 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes will be added here
+// API routes
+app.use('/api/v1/auth', authRoutes);
+
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
     status: 'success',
