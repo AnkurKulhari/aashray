@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const MoodEntrySchema = new mongoose.Schema({
   user: {
@@ -417,7 +418,8 @@ MoodEntrySchema.pre('save', function(next) {
   next();
 });
 
-// Apply pagination plugin
+// Apply pagination plugins
 MoodEntrySchema.plugin(aggregatePaginate);
+MoodEntrySchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('MoodEntry', MoodEntrySchema);
