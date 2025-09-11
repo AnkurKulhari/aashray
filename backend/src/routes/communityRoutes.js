@@ -18,6 +18,7 @@ const {
 } = require('../controllers/communityController');
 const { protect } = require('../controllers/authController');
 const { validateCommunityPost } = require('../middleware/validation');
+const { monitorCommunityPost } = require('../middleware/crisisMonitoring');
 
 const router = express.Router();
 
@@ -28,7 +29,7 @@ router.use(protect);
 router
   .route('/posts')
   .get(getPosts)
-  .post(validateCommunityPost, createPost);
+  .post(validateCommunityPost, monitorCommunityPost, createPost);
 
 router
   .route('/posts/:id')
@@ -38,8 +39,8 @@ router
 
 // Post interactions
 router.patch('/posts/:id/like', toggleLike);
-router.post('/posts/:id/comments', addComment);
-router.post('/posts/:id/comments/:commentId/replies', addReply);
+router.post('/posts/:id/comments', monitorCommunityPost, addComment);
+router.post('/posts/:id/comments/:commentId/replies', monitorCommunityPost, addReply);
 router.post('/posts/:id/report', reportPost);
 router.patch('/posts/:id/comments/:commentId/helpful', markCommentHelpful);
 

@@ -33,6 +33,13 @@ const UserSchema = new mongoose.Schema({
     select: false
   },
   
+  // Role for access control
+  role: {
+    type: String,
+    enum: ['student', 'admin', 'moderator', 'therapist', 'content_creator'],
+    default: 'student'
+  },
+  
   // Educational Information
   university: {
     type: String,
@@ -248,7 +255,30 @@ const UserSchema = new mongoose.Schema({
       frequency: Number,
       lastOccurrence: Date
     }]
-  }
+  },
+  
+  // Search and personalization data
+  savedSearches: [{
+    query: { type: String, required: true },
+    filters: {
+      category: String,
+      type: String,
+      difficulty: String,
+      tags: [String]
+    },
+    savedAt: { type: Date, default: Date.now }
+  }],
+  
+  searchHistory: [{
+    query: String,
+    timestamp: { type: Date, default: Date.now },
+    resultCount: Number,
+    clicked: [{
+      resourceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Resource' },
+      position: Number,
+      timestamp: { type: Date, default: Date.now }
+    }]
+  }]
 }, {
   timestamps: true,
   toJSON: { virtuals: true },
@@ -288,12 +318,6 @@ UserSchema.pre('save', async function(next) {
   this.password = await bcrypt.hash(this.password, 12);
   
   // Set passwordChangedAt to current time (except for new documents)
-  if (!this.isNew) {
-    this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure JWT is issued after password change
-  }
-  
-  next();
-});
   if (!this.isNew) {
     this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure JWT is issued after password change
   }

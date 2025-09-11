@@ -1,0 +1,17 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean Aashray logo without text for header -->
+  
+  <!-- House roof/shelter -->
+  <path d="M40 45 L100 20 L160 45 L160 50 L150 50 L100 30 L50 50 L40 50 Z" fill="#7BB3B0"/>
+  
+  <!-- Left hand -->
+  <path d="M30 85 C25 82 20 88 20 95 L20 125 C20 135 25 145 35 150 L50 155 C55 157 60 155 60 150 L60 135 C60 125 55 115 50 110 L40 100 C37 97 33 90 30 85 Z" fill="#7BB3B0"/>
+  
+  <!-- Right hand -->
+  <path d="M170 85 C175 82 180 88 180 95 L180 125 C180 135 175 145 165 150 L150 155 C145 157 140 155 140 150 L140 135 C140 125 145 115 150 110 L160 100 C163 97 167 90 170 85 Z" fill="#7BB3B0"/>
+  
+  <!-- Heart -->
+  <ellipse cx="85" cy="75" rx="12" ry="18" fill="#8FC4A0"/>
+  <ellipse cx="115" cy="75" rx="12" ry="18" fill="#8FC4A0"/>
+  <path d="M73 80 L100 120 L127 80 C127 70 122 60 115 58 C108 56 100 62 100 62 C100 62 92 56 85 58 C78 60 73 70 73 80 Z" fill="#8FC4A0"/>
+</svg>

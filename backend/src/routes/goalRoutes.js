@@ -16,6 +16,7 @@ const {
 } = require('../controllers/goalController');
 const { protect } = require('../controllers/authController');
 const { validateGoal } = require('../middleware/validation');
+const { monitorGoalUpdate } = require('../middleware/crisisMonitoring');
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.use(protect);
 router
   .route('/')
   .get(getGoals)
-  .post(validateGoal, createGoal);
+  .post(validateGoal, monitorGoalUpdate, createGoal);
 
 router
   .route('/:id')
@@ -35,7 +36,7 @@ router
   .delete(deleteGoal);
 
 // Goal progress and management
-router.patch('/:id/progress', updateGoalProgress);
+router.patch('/:id/progress', monitorGoalUpdate, updateGoalProgress);
 router.post('/:id/challenges', addGoalChallenge);
 router.patch('/:id/challenges/resolve', resolveGoalChallenge);
 

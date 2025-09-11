@@ -2,10 +2,13 @@ const MoodEntry = require('../models/MoodEntry');
 const User = require('../models/User');
 const { OpenAI } = require('openai');
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI client (optional)
+let openai = null;
+if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your-openai-api-key-here') {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 // Create a new mood entry
 const createMoodEntry = async (req, res) => {
@@ -405,7 +408,7 @@ const generateMoodReport = async (req, res) => {
 // Helper function to generate AI insights
 const generateAIInsights = async (moodEntry) => {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    if (!openai) {
       console.log('OpenAI API key not configured, skipping AI insights');
       return;
     }

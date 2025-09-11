@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="none"/>
+  
+  <!-- House roof -->
+  <path d="M150 120 L256 60 L362 120 L362 140 L340 140 L256 90 L172 140 L150 140 Z" fill="#7BB3B0" stroke="none"/>
+  
+  <!-- Left hand -->
+  <path d="M120 240 C110 235 105 245 105 255 L105 320 C105 340 115 360 135 370 L160 380 C170 385 180 380 180 370 L180 340 C180 320 170 300 160 290 L140 270 C135 265 130 250 120 240 Z" fill="#7BB3B0"/>
+  
+  <!-- Right hand -->
+  <path d="M392 240 C402 235 407 245 407 255 L407 320 C407 340 397 360 377 370 L352 380 C342 385 332 380 332 370 L332 340 C332 320 342 300 352 290 L372 270 C377 265 382 250 392 240 Z" fill="#7BB3B0"/>
+  
+  <!-- Heart -->
+  <ellipse cx="230" cy="200" rx="25" ry="35" fill="#8FC4A0"/>
+  <ellipse cx="282" cy="200" rx="25" ry="35" fill="#8FC4A0"/>
+  <path d="M205 210 L256 280 L307 210 C307 190 297 170 282 165 C267 160 256 170 256 170 C256 170 245 160 230 165 C215 170 205 190 205 210 Z" fill="#8FC4A0"/>
+  
+  <!-- Text आश्रय -->
+  <g fill="#4A7C7A" font-family="serif" font-size="80" font-weight="bold">
+    <!-- आ -->
+    <path d="M80 400 L80 450 L120 450 L120 430 L100 430 L100 410 L140 410 L140 390 L80 390 Z M90 400 L90 420 L130 420 L130 400 Z"/>
+    
+    <!-- श्र -->
+    <path d="M160 400 L160 450 L180 450 L180 430 L200 430 L200 450 L220 450 L220 390 L160 390 Z M170 400 L170 420 L210 420 L210 400 Z M180 405 L180 415 L200 415 L200 405 Z"/>
+    
+    <!-- य -->
+    <path d="M260 400 L260 450 L280 450 L280 430 L320 430 L320 410 L280 410 L280 400 L320 400 L320 390 L260 390 Z"/>
+  </g>
+  
+  <!-- Simplified Hindi text as paths for better compatibility -->
+  <text x="256" y="440" text-anchor="middle" fill="#4A7C7A" font-family="Devanagari, serif" font-size="72" font-weight="bold">आश्रय</text>
+</svg>

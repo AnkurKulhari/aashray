@@ -50,6 +50,13 @@ const moodRoutes = require('./routes/moodRoutes');
 const goalRoutes = require('./routes/goalRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const gamificationRoutes = require('./routes/gamificationRoutes');
+const resourceRoutes = require('./routes/resourceRoutes');
+const searchRoutes = require('./routes/searchRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
+const collectionRoutes = require('./routes/collectionRoutes');
+const versionRoutes = require('./routes/versionRoutes');
+const emergencyRoutes = require('./routes/emergencyRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -61,12 +68,21 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Emergency routes (must come first to avoid global protection)
+app.use('/api/v1', emergencyRoutes);
+
 // API routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/moods', moodRoutes);
 app.use('/api/v1/goals', goalRoutes);
 app.use('/api/v1/community', communityRoutes);
 app.use('/api/v1/gamification', gamificationRoutes);
+app.use('/api/v1/resources', resourceRoutes);
+app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/v1/collections', collectionRoutes);
+app.use('/api/v1/ai', aiRoutes);
+app.use('/api/v1', versionRoutes);
 
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
@@ -80,6 +96,11 @@ app.get('/api/v1', (req, res) => {
       goals: '/api/v1/goals',
       community: '/api/v1/community',
       resources: '/api/v1/resources',
+      search: '/api/v1/search',
+      analytics: '/api/v1/analytics',
+      collections: '/api/v1/collections',
+      ai: '/api/v1/ai',
+      versions: '/api/v1/resources/{resourceId}/versions',
       emergency: '/api/v1/emergency'
     }
   });

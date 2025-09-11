@@ -12,6 +12,7 @@ const {
 } = require('../controllers/moodController');
 const { protect } = require('../controllers/authController');
 const { validateMoodEntry } = require('../middleware/validation');
+const { monitorMoodEntry } = require('../middleware/crisisMonitoring');
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.use(protect);
 router
   .route('/')
   .get(getMoodEntries)
-  .post(validateMoodEntry, createMoodEntry);
+  .post(validateMoodEntry, monitorMoodEntry, createMoodEntry);
 
 router
   .route('/:id')

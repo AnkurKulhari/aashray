@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ResourceSchema = new mongoose.Schema({
   title: {
@@ -404,5 +405,8 @@ ResourceSchema.index({
   tags: 'text',
   'author.name': 'text'
 });
+
+// Add pagination plugin
+ResourceSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Resource', ResourceSchema);

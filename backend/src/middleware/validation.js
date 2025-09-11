@@ -301,6 +301,357 @@ const validateCommunityPost = [
   handleValidationErrors
 ];
 
+// Resource validation
+const validateResource = [
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Resource title is required')
+    .isLength({ min: 5, max: 200 })
+    .withMessage('Resource title must be between 5 and 200 characters'),
+  
+  body('description')
+    .trim()
+    .notEmpty()
+    .withMessage('Resource description is required')
+    .isLength({ min: 20, max: 1000 })
+    .withMessage('Resource description must be between 20 and 1000 characters'),
+  
+  body('type')
+    .notEmpty()
+    .withMessage('Resource type is required')
+    .isIn(['article', 'video', 'podcast', 'worksheet', 'assessment', 'guide', 'infographic', 'audio', 'other'])
+    .withMessage('Please select a valid resource type'),
+  
+  body('category')
+    .notEmpty()
+    .withMessage('Resource category is required')
+    .isIn([
+      'anxiety', 'depression', 'stress', 'sleep', 'relationships', 'self_esteem',
+      'trauma', 'addiction', 'eating_disorders', 'academic_stress', 'crisis',
+      'mindfulness', 'coping_skills', 'therapy', 'medication', 'self_care',
+      'physical_health', 'social_skills', 'communication', 'general'
+    ])
+    .withMessage('Please select a valid resource category'),
+  
+  body('difficulty')
+    .optional()
+    .isIn(['beginner', 'intermediate', 'advanced'])
+    .withMessage('Please select a valid difficulty level'),
+  
+  body('targetAudience')
+    .optional()
+    .isIn(['students', 'general', 'professionals', 'family', 'specific_condition'])
+    .withMessage('Please select a valid target audience'),
+  
+  body('content.url')
+    .optional()
+    .isURL({ protocols: ['http', 'https'] })
+    .withMessage('Please provide a valid URL'),
+  
+  body('content.text')
+    .optional()
+    .trim()
+    .isLength({ max: 50000 })
+    .withMessage('Content text cannot exceed 50,000 characters'),
+  
+  body('content.duration')
+    .optional()
+    .isInt({ min: 1, max: 10080 }) // max 7 days in minutes
+    .withMessage('Duration must be between 1 and 10080 minutes'),
+  
+  body('tags')
+    .optional()
+    .isArray({ max: 10 })
+    .withMessage('Maximum 10 tags allowed'),
+  
+  body('tags.*')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 30 })
+    .withMessage('Each tag must be between 2 and 30 characters')
+    .matches(/^[a-zA-Z0-9_\s-]+$/)
+    .withMessage('Tags can only contain letters, numbers, spaces, hyphens and underscores'),
+  
+  body('triggers')
+    .optional()
+    .isArray()
+    .withMessage('Triggers must be an array'),
+  
+  body('triggers.*')
+    .optional()
+    .isIn([
+      'self_harm', 'suicide', 'violence', 'abuse', 'eating_disorders',
+      'substance_use', 'trauma', 'medical_content', 'graphic_imagery'
+    ])
+    .withMessage('Please select valid trigger warnings'),
+  
+  body('contentWarning')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Content warning cannot exceed 500 characters'),
+  
+  body('author.name')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage('Author name must be between 2 and 100 characters'),
+  
+  body('author.credentials')
+    .optional()
+    .trim()
+    .isLength({ max: 200 })
+    .withMessage('Author credentials cannot exceed 200 characters'),
+  
+  handleValidationErrors
+];
+
+// Resource rating validation
+const validateResourceRating = [
+  body('rating')
+    .notEmpty()
+    .withMessage('Rating is required')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Rating must be between 1 and 5'),
+  
+  body('review')
+    .optional()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage('Review cannot exceed 1000 characters'),
+  
+  body('helpfulness')
+    .optional()
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Helpfulness rating must be between 1 and 5'),
+  
+  handleValidationErrors
+];
+
+// Resource comment validation
+const validateResourceComment = [
+  body('content')
+    .trim()
+    .notEmpty()
+    .withMessage('Comment content is required')
+    .isLength({ min: 3, max: 500 })
+    .withMessage('Comment must be between 3 and 500 characters'),
+  
+  handleValidationErrors
+];
+
+// Resource report validation
+const validateResourceReport = [
+  body('reason')
+    .notEmpty()
+    .withMessage('Report reason is required')
+    .isIn(['inappropriate', 'inaccurate', 'spam', 'copyright', 'other'])
+    .withMessage('Please select a valid report reason'),
+  
+  body('description')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Report description cannot exceed 500 characters'),
+  
+  handleValidationErrors
+];
+
+// Collection validation
+const validateCollection = [
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Collection title is required')
+    .isLength({ min: 5, max: 200 })
+    .withMessage('Collection title must be between 5 and 200 characters'),
+  
+  body('description')
+    .trim()
+    .notEmpty()
+    .withMessage('Collection description is required')
+    .isLength({ min: 20, max: 1000 })
+    .withMessage('Collection description must be between 20 and 1000 characters'),
+  
+  body('type')
+    .notEmpty()
+    .withMessage('Collection type is required')
+    .isIn(['curated', 'learning_path', 'topic_series', 'featured', 'seasonal', 'crisis_support'])
+    .withMessage('Please select a valid collection type'),
+  
+  body('category')
+    .notEmpty()
+    .withMessage('Collection category is required')
+    .isIn([
+      'anxiety', 'depression', 'stress', 'sleep', 'relationships', 'self_esteem',
+      'trauma', 'addiction', 'eating_disorders', 'academic_stress', 'crisis',
+      'mindfulness', 'coping_skills', 'therapy', 'medication', 'self_care',
+      'physical_health', 'social_skills', 'communication', 'general'
+    ])
+    .withMessage('Please select a valid collection category'),
+  
+  body('targetAudience')
+    .optional()
+    .isIn(['students', 'general', 'professionals', 'family', 'specific_condition'])
+    .withMessage('Please select a valid target audience'),
+  
+  body('visibility')
+    .optional()
+    .isIn(['public', 'unlisted', 'private'])
+    .withMessage('Please select a valid visibility option'),
+  
+  body('status')
+    .optional()
+    .isIn(['draft', 'review', 'published', 'archived'])
+    .withMessage('Please select a valid status'),
+  
+  body('color')
+    .optional()
+    .matches(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+    .withMessage('Please provide a valid hex color code'),
+  
+  body('tags')
+    .optional()
+    .isArray({ max: 10 })
+    .withMessage('Maximum 10 tags allowed'),
+  
+  body('tags.*')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 30 })
+    .withMessage('Each tag must be between 2 and 30 characters')
+    .matches(/^[a-zA-Z0-9_\s-]+$/)
+    .withMessage('Tags can only contain letters, numbers, spaces, hyphens and underscores'),
+  
+  body('resources')
+    .optional()
+    .isArray()
+    .withMessage('Resources must be an array'),
+  
+  body('resources.*.resource')
+    .optional()
+    .isMongoId()
+    .withMessage('Resource ID must be a valid MongoDB ObjectId'),
+  
+  body('resources.*.order')
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage('Resource order must be a positive integer'),
+  
+  body('resources.*.estimatedTime')
+    .optional()
+    .isInt({ min: 1, max: 480 }) // Max 8 hours
+    .withMessage('Estimated time must be between 1 and 480 minutes'),
+  
+  handleValidationErrors
+];
+
+// Collection progress validation
+const validateCollectionProgress = [
+  body('resourceId')
+    .notEmpty()
+    .withMessage('Resource ID is required')
+    .isMongoId()
+    .withMessage('Resource ID must be a valid MongoDB ObjectId'),
+  
+  body('completed')
+    .optional()
+    .isBoolean()
+    .withMessage('Completed must be a boolean value'),
+  
+  body('timeSpent')
+    .optional()
+    .isInt({ min: 0, max: 480 })
+    .withMessage('Time spent must be between 0 and 480 minutes'),
+  
+  body('rating')
+    .optional()
+    .isInt({ min: 1, max: 5 })
+    .withMessage('Rating must be between 1 and 5'),
+  
+  handleValidationErrors
+];
+
+// Version validation
+const validateVersion = [
+  body('changeType')
+    .optional()
+    .isIn(['major', 'minor', 'patch'])
+    .withMessage('Change type must be major, minor, or patch'),
+  
+  body('changeDescription')
+    .trim()
+    .notEmpty()
+    .withMessage('Change description is required')
+    .isLength({ min: 10, max: 500 })
+    .withMessage('Change description must be between 10 and 500 characters'),
+  
+  body('scheduledPublishAt')
+    .optional()
+    .isISO8601()
+    .withMessage('Scheduled publish date must be a valid ISO 8601 date')
+    .custom((value) => {
+      if (value && new Date(value) <= new Date()) {
+        throw new Error('Scheduled publish date must be in the future');
+      }
+      return true;
+    }),
+  
+  handleValidationErrors
+];
+
+// Version review validation
+const validateVersionReview = [
+  body('notes')
+    .trim()
+    .notEmpty()
+    .withMessage('Review notes are required')
+    .isLength({ min: 10, max: 1000 })
+    .withMessage('Review notes must be between 10 and 1000 characters'),
+  
+  body('makeCurrentVersion')
+    .optional()
+    .isBoolean()
+    .withMessage('makeCurrentVersion must be a boolean'),
+  
+  handleValidationErrors
+];
+
+// Rollback validation
+const validateRollback = [
+  body('rollbackReason')
+    .trim()
+    .notEmpty()
+    .withMessage('Rollback reason is required')
+    .isLength({ min: 10, max: 500 })
+    .withMessage('Rollback reason must be between 10 and 500 characters'),
+  
+  handleValidationErrors
+];
+
+// Schedule publication validation
+const validateSchedulePublication = [
+  body('scheduledPublishAt')
+    .notEmpty()
+    .withMessage('Scheduled publish date is required')
+    .isISO8601()
+    .withMessage('Scheduled publish date must be a valid ISO 8601 date')
+    .custom((value) => {
+      const scheduleDate = new Date(value);
+      const now = new Date();
+      if (scheduleDate <= now) {
+        throw new Error('Scheduled publish date must be in the future');
+      }
+      if (scheduleDate.getTime() - now.getTime() > 365 * 24 * 60 * 60 * 1000) {
+        throw new Error('Scheduled publish date cannot be more than 1 year in the future');
+      }
+      return true;
+    }),
+  
+  handleValidationErrors
+];
+
 module.exports = {
   validateRegistration,
   validateLogin,
@@ -310,5 +661,15 @@ module.exports = {
   validateMoodEntry,
   validateGoal,
   validateCommunityPost,
+  validateResource,
+  validateResourceRating,
+  validateResourceComment,
+  validateResourceReport,
+  validateCollection,
+  validateCollectionProgress,
+  validateVersion,
+  validateVersionReview,
+  validateRollback,
+  validateSchedulePublication,
   handleValidationErrors
 };
